@@ -19,14 +19,6 @@ if(isset($_GET["id"]) && isset($_GET["api"])){
       "x-api-key:  ". $_GET["api"]
       ),
   ));
-  class ICS{
-    var $data;
-    var $name;
-    function ICS($start,$end,$name,$description,$location) {
-        $this->name = $name;
-        $this->data = "BEGIN:VEVENT\nDTSTART:".date("Ymd\THis\Z",strtotime($start))."\nDTEND:".date("Ymd\THis\Z",strtotime($end))."\nLOCATION:".$location."\nTRANSP: OPAQUE\nSEQUENCE:0\nUID:\nDTSTAMP:".date("Ymd\THis\Z")."\nSUMMARY:".$name."\nDESCRIPTION:".$description."\nPRIORITY:1\nCLASS:PUBLIC\nBEGIN:VALARM\nTRIGGER:-PT10080M\nACTION:DISPLAY\nDESCRIPTION:Reminder\nEND:VALARM\nEND:VEVENT\n";
-    }
-  }
 
   $response = curl_exec($curl);
   
