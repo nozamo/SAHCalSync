@@ -24,18 +24,10 @@ if(isset($_GET["id"]) && isset($_GET["api"])){
   
   curl_close($curl);
   $data = json_decode($response);
-  // print_r($data->items[0]);
-  // die();
-
-    // $cal = new SimpleICS();
-    $start = "BEGIN:VCALENDAR
-    VERSION:2.0
-    PRODID:-//bobbin v0.1//NONSGML iCal Writer//EN
-    CALSCALE:GREGORIAN
-    METHOD:PUBLISH";
-    $end = "END:VCALENDAR";
-    header('Content-type: text/calendar; charset=utf-8');
-    header('Content-Disposition: attachment; filename=SAH_cal.ics'); ?>
+  // Maak het downloadable
+  header('Content-type: text/calendar; charset=utf-8');
+  header('Content-Disposition: attachment; filename=SAH_cal.ics'); 
+  // Begin van ICS file?>
 BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//bobbin v0.1//NONSGML iCal Writer//EN
@@ -54,6 +46,7 @@ echo "BEGIN:VEVENT\nDTSTART:".date("Ymd\THis\Z",strtotime($startTime))."\nDTEND:
 }
 ?>
 END:VCALENDAR<?php
+// Eind van ICS file
 } else{
   echo "Ongeldige URL";
 }
