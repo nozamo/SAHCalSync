@@ -57,36 +57,33 @@ Not working yet
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 */
+$curl = curl_init();
 
-// $curl = curl_init();
+  curl_setopt_array($curl, array(
+    CURLOPT_URL => "https://z0shy2ecl0.execute-api.eu-west-1.amazonaws.com/production/customer",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "GET",
+    CURLOPT_HTTPHEADER => array(
+      "accept:  application/json, text/plain, */*",
+      "customerusername: ". $customerUsername,
+      "idtoken:  ". $_GET["id"],
+      "x-api-key:  ". $_GET["api"]
+      ),
+  ));
 
-//   curl_setopt_array($curl, array(
-//     CURLOPT_URL => "https://z0shy2ecl0.execute-api.eu-west-1.amazonaws.com/production/customer",
-//     CURLOPT_RETURNTRANSFER => true,
-//     CURLOPT_ENCODING => "",
-//     CURLOPT_MAXREDIRS => 10,
-//     CURLOPT_TIMEOUT => 0,
-//     CURLOPT_FOLLOWLOCATION => true,
-//     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-//     CURLOPT_CUSTOMREQUEST => "GET",
-//     CURLOPT_HTTPHEADER => array(
-//       "accept:  application/json, text/plain, */*",
-//       "customerusername: ". $customerUsername,
-//       "idtoken:  ". $_GET["id"],
-//       "x-api-key:  ". $_GET["api"]
-//       ),
-//   ));
+  $customerJson = curl_exec($curl);
+  curl_close($curl);
 
-//   $customerJson = curl_exec($curl);
-//   curl_close($curl);
+  $customerInfo = json_decode($customerJson);
 
-//   $customerInfo = json_decode($customerJson);
-
-//   foreach($customerInfo->user as $value1){
-//     $givenName = $value1->attributes->given_name;
-//     $middleName = $value1->attributes->middle_name . " ";
-//     $familyName = $value1->attributes->family_name;
-//   }
+    if(isset($customerInfo->user->attributes->given_name)) $givenName = $customerInfo->user->attributes->given_name . " ";
+    if(isset($customerInfo->user->attributes->middle_name)) $middleName = $customerInfo->user->attributes->middle_name . " ";
+    if(isset($customerInfo->user->attributes->family_name)) $familyName = $customerInfo->user->attributes->family_name . " | ";
 
 /* 
 
@@ -98,7 +95,7 @@ Paste out 'till here
 
 */  
 
-echo "BEGIN:VEVENT\nDTSTART:".date("Ymd\THis\Z",strtotime($startTime))."\nDTEND:".date("Ymd\THis\Z",strtotime($endTime))."\nLOCATION:".$address."\nTRANSP:OPAQUE\nSEQUENCE:0\nUID:".md5($customerCode)."\nDTSTAMP:".date("Ymd\THis\Z")."\nSUMMARY:". $customerCode."\nDESCRIPTION:".$description."\nPRIORITY:1\nCLASS:PUBLIC\nEND:VEVENT\n";
+echo "BEGIN:VEVENT\nDTSTART:".date("Ymd\THis\Z",strtotime($startTime))."\nDTEND:".date("Ymd\THis\Z",strtotime($endTime))."\nLOCATION:".$address."\nTRANSP:OPAQUE\nSEQUENCE:0\nUID:".md5($customerCode)."\nDTSTAMP:".date("Ymd\THis\Z")."\nSUMMARY:". $givenName . $middleName . $familyName . $customerCode."\nDESCRIPTION:".$description."\nPRIORITY:1\nCLASS:PUBLIC\nEND:VEVENT\n";
 }
 ?>
 END:VCALENDAR<?php
