@@ -34,7 +34,7 @@ if(isset($_GET["id"]) && isset($_GET["api"])){
   // Begin van ICS file?>
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//bobbin v0.1//NONSGML iCal Writer//EN
+PRODID:-//basvli v0.1//SAH Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 <?php foreach($data->items as $value){
