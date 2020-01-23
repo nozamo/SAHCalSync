@@ -47,16 +47,6 @@ $endTime = $value->scheduledEndDateTime;
 $address = $value->address->street . " " . $value->address->streetNumber . ", " . $value->address->postalCode . " " . $value->address->city;
 
 
-/* 
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
-Working on converting username to real name
-Not working yet
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
-*/
 $curl = curl_init();
 
   curl_setopt_array($curl, array(
@@ -83,17 +73,7 @@ $curl = curl_init();
 
     if(isset($customerInfo->user->attributes->given_name)) $givenName = $customerInfo->user->attributes->given_name . " ";
     if(isset($customerInfo->user->attributes->middle_name)) $middleName = $customerInfo->user->attributes->middle_name . " ";
-    if(isset($customerInfo->user->attributes->family_name)) $familyName = $customerInfo->user->attributes->family_name . " | ";
-
-/* 
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
-Paste out 'till here
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
-*/  
+    if(isset($customerInfo->user->attributes->family_name)) $familyName = $customerInfo->user->attributes->family_name . " | ";  
 
 echo "BEGIN:VEVENT\nDTSTART:".date("Ymd\THis\Z",strtotime($startTime))."\nDTEND:".date("Ymd\THis\Z",strtotime($endTime))."\nLOCATION:".$address."\nTRANSP:OPAQUE\nSEQUENCE:0\nUID:".md5($customerCode)."\nDTSTAMP:".date("Ymd\THis\Z")."\nSUMMARY:". $givenName . $middleName . $familyName . $customerCode."\nDESCRIPTION:".$description."\nPRIORITY:1\nCLASS:PUBLIC\nEND:VEVENT\n";
 }
