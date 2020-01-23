@@ -98,7 +98,7 @@ Paste out 'till here
 
 */  
 
-echo "BEGIN:VEVENT\nDTSTART:".date("Ymd\THis\Z",strtotime($startTime))."\nDTEND:".date("Ymd\THis\Z",strtotime($endTime))."\nLOCATION:".$address."\nTRANSP:OPAQUE\nSEQUENCE:0\nUID:".md5($customerCode)."\nDTSTAMP:".date("Ymd\THis\Z")."\nSUMMARY:".$givenName . " " . $middleName . $familyName . " " . $customerCode."\nDESCRIPTION:".$description."\nPRIORITY:1\nCLASS:PUBLIC\nEND:VEVENT\n";
+echo "BEGIN:VEVENT\nDTSTART:".date("Ymd\THis\Z",strtotime($startTime))."\nDTEND:".date("Ymd\THis\Z",strtotime($endTime))."\nLOCATION:".$address."\nTRANSP:OPAQUE\nSEQUENCE:0\nUID:".md5($customerCode)."\nDTSTAMP:".date("Ymd\THis\Z")."\nSUMMARY:". $customerCode."\nDESCRIPTION:".$description."\nPRIORITY:1\nCLASS:PUBLIC\nEND:VEVENT\n";
 }
 ?>
 END:VCALENDAR<?php
