@@ -1,5 +1,5 @@
 Gebruik:
-Download XAMPP of iets dergelijks, download het volgende bestand:
+Download XAMPP of iets dergelijks, of gebruik je eigen domein en download het volgende bestand:
 https://github.com/.../SAHCalSync/blob/master/calendar.php
 
 Doe dit vervolgens: Open F12 -> Network -> XHR.
