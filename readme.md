@@ -1,6 +1,6 @@
 Gebruik:
 Download XAMPP of iets dergelijks, of gebruik je eigen domein en download het volgende bestand:
-https://github.com/.../SAHCalSync/blob/master/calendar.php
+https://github.com/AdventurePandah/SAHCalSync/blob/master/calendar.php
 
 Zet het bestand in je htdocs en doe vervolgens dit: Open F12 -> Network -> XHR.
 Open dan SAH -> afspraken.
