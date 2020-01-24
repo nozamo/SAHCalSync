@@ -1,6 +1,5 @@
 <?php
 
-$givenName = "";
 $middleName = "";
 $familyName = "";
 
