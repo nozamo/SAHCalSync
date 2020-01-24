@@ -40,8 +40,8 @@ METHOD:PUBLISH
 <?php foreach($data->items as $value){
 $customerUsername = $value->customerUsername;
 $customerCode = $value->customerNumber;
-$description = $value->description;
 $pin = $value->pin;
+$description = $value->description . "<br>Pin: " . $pin;
 $startTime = $value->scheduledStartDateTime;
 $endTime = $value->scheduledEndDateTime;
 $address = $value->address->street . " " . $value->address->streetNumber . ", " . $value->address->postalCode . " " . $value->address->city;
