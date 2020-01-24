@@ -1,8 +1,8 @@
 Gebruik:
-Download XAMPP of iets dergelijks, download het volgende bestand:
-https://github.com/.../SAHCalSync/blob/master/calendar.php
+Download XAMPP of iets dergelijks, of gebruik je eigen domein en download het volgende bestand:
+https://github.com/AdventurePandah/SAHCalSync/blob/master/calendar.php
 
-Doe dit vervolgens: Open F12 -> Network -> XHR.
+Zet het bestand in je htdocs en doe vervolgens dit: Open F12 -> Network -> XHR.
 Open dan SAH -> afspraken.
 Dan zie je als het goed is een item staan genaamd 'list' of 'customer'.
 Klik daarop. Als het goed is zie je de headers. Hier heb je de headers 'idtoken' en 'x-api-key'. Deze twee moet je kopieren.
