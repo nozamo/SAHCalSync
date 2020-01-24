@@ -120,5 +120,5 @@ echo "BEGIN:VEVENT\nDTSTART;TZID=Europe/Berlin:".date("Ymd\THis",strtotime($star
 END:VCALENDAR<?php
 // Eind van ICS file
 } else{
-  echo "Ongeldige URL";
+  echo "Ongeldige URL. Gebruik yourdomain.com/calendar.php?id=YOUR_ID_TOKEN&api=YOUR_API_KEY";
 }
