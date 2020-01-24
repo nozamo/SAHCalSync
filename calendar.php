@@ -38,13 +38,15 @@ PRODID:-//basvli v0.1//SAH Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 <?php foreach($data->items as $value){
-$customerUsername = $value->customerUsername;
-$customerCode = $value->customerNumber;
-$pin = $value->pin;
-$description = $value->description . "<br>Pin: " . $pin;
-$startTime = $value->scheduledStartDateTime;
-$endTime = $value->scheduledEndDateTime;
-$address = $value->address->street . " " . $value->address->streetNumber . ", " . $value->address->postalCode . " " . $value->address->city;
+  if($value->status !== "Cancelled"){
+    $customerUsername = $value->customerUsername;
+    $customerCode = $value->customerNumber;
+    $pin = $value->pin;
+    $description = $value->description . 
+    "\\nPin: " . $pin;
+    $startTime = $value->scheduledStartDateTime;
+    $endTime = $value->scheduledEndDateTime;
+    $address = $value->address->street . " " . $value->address->streetNumber . ", " . $value->address->postalCode . " " . $value->address->city;
 
 
 $curl = curl_init();
@@ -71,11 +73,30 @@ $curl = curl_init();
 
   $customerInfo = json_decode($customerJson);
 
-    if(isset($customerInfo->user->attributes->given_name)) $givenName = $customerInfo->user->attributes->given_name . " ";
-    if(isset($customerInfo->user->attributes->middle_name)) $middleName = $customerInfo->user->attributes->middle_name . " ";
-    if(isset($customerInfo->user->attributes->family_name)) $familyName = $customerInfo->user->attributes->family_name . " | ";  
+  $gender = $customerInfo->user->attributes->gender;
 
-echo "BEGIN:VEVENT\nDTSTART:".date("Ymd\THis\Z",strtotime($startTime))."\nDTEND:".date("Ymd\THis\Z",strtotime($endTime))."\nLOCATION:".$address."\nTRANSP:OPAQUE\nSEQUENCE:0\nUID:".md5($customerCode)."\nDTSTAMP:".date("Ymd\THis\Z")."\nSUMMARY:". $givenName . $middleName . $familyName . $customerCode."\nDESCRIPTION:".$description."\nPRIORITY:1\nCLASS:PUBLIC\nEND:VEVENT\n";
+    if(isset($gender)){
+      if($gender == "M"){
+        $name = "Meneer ";
+      } else if($gender == "F"){
+        $name = "Mevrouw ";
+      } else{
+        $name = "";
+      }
+    if(isset($customerInfo->user->attributes->middle_name)) {
+      $middleName = $customerInfo->user->attributes->middle_name . " ";
+    } else{
+      $middleName = "";
+    }
+    if(isset($customerInfo->user->attributes->family_name)) {
+      $familyName = $customerInfo->user->attributes->family_name . " | ";  
+    } else{
+      $familyName = "";
+    }
+
+echo "BEGIN:VEVENT\nDTSTART:".date("Ymd\THis\Z",strtotime($startTime))."\nDTEND:".date("Ymd\THis\Z",strtotime($endTime))."\nLOCATION:".$address."\nTRANSP:OPAQUE\nSEQUENCE:0\nUID:".md5($customerCode)."\nDTSTAMP:".date("Ymd\THis\Z")."\nSUMMARY:". $name . $middleName . $familyName . $customerCode."\nDESCRIPTION:".$description."\nPRIORITY:1\nCLASS:PUBLIC\nEND:VEVENT\n";
+  }
+}
 }
 ?>
 END:VCALENDAR<?php
