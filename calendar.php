@@ -114,13 +114,12 @@ $curl = curl_init();
       $familyName = "";
     }
 
-echo "BEGIN:VEVENT\nDTSTART;TZID=Europe/Berlin:".date("Ymd\THis",strtotime($startTime))."\nDTEND;TZID=Europe/Berlin:".date("Ymd\THis",strtotime($endTime))."\nLOCATION:".$address."\nTRANSP:OPAQUE\nSEQUENCE:0\nUID:".md5($customerCode)."\nDTSTAMP:".date("Ymd\THis\Z")."\nSUMMARY:". $name . $middleName . $familyName . $customerCode."\nDESCRIPTION:".$description."\nPRIORITY:1\nCLASS:PRIVATE\nEND:VEVENT\n";
-  }
+echo "BEGIN:VEVENT\nDTSTART;TZID=Europe/Berlin:".date("Ymd\THis",strtotime($startTime))."\nDTEND;TZID=Europe/Berlin:".date("Ymd\THis",strtotime($endTime))."\nLOCATION:".$address."\nTRANSP:OPAQUE\nSEQUENCE:0\nUID:".md5($customerCode)."\nDTSTAMP:".date("Ymd\THis\Z")."\nSUMMARY:". $name . $middleName . $familyName . $customerCode."\nDESCRIPTION:".$description."\nPRIORITY:1\nCLASS:PRIVATE\nEND:VEVENT\n";  }
 }
 }
 ?>
 END:VCALENDAR<?php
 // Eind van ICS file
 } else{
-  echo "Ongeldige URL";
+  echo "Ongeldige URL. Gebruik yourdomain.com/calendar.php?id=YOUR_ID_TOKEN&api=YOUR_API_KEY";
 }
