@@ -60,8 +60,10 @@ END:VTIMEZONE
     $customerUsername = $value->customerUsername;
     $customerCode = $value->customerNumber;
     $pin = $value->pin;
-    $description = $value->description . 
-    "\\nPin: " . $pin;
+    $phone = $customerInfo->user->attributes->phone_number;
+    $description = "Telefoon: ". $phone .
+    "\\n\\nPin: " . $pin .
+    "\\n\\nOmschrijving: " . $value->description;
     $startTime = $value->scheduledStartDateTime;
     $endTime = $value->scheduledEndDateTime;
     $address = $value->address->street . " " . $value->address->streetNumber . ", " . $value->address->postalCode . " " . $value->address->city;
@@ -112,7 +114,7 @@ $curl = curl_init();
       $familyName = "";
     }
 
-echo "BEGIN:VEVENT\nDTSTART;TZID=Europe/Berlin:".date("Ymd\THis",strtotime($startTime))."\nDTEND;TZID=Europe/Berlin:".date("Ymd\THis",strtotime($endTime))."\nLOCATION:".$address."\nTRANSP:OPAQUE\nSEQUENCE:0\nUID:".md5($customerCode)."\nDTSTAMP:".date("Ymd\THis\Z")."\nSUMMARY:". $name . $middleName . $familyName . $customerCode."\nDESCRIPTION:".$description."\nPRIORITY:1\nCLASS:PUBLIC\nEND:VEVENT\n";
+echo "BEGIN:VEVENT\nDTSTART;TZID=Europe/Berlin:".date("Ymd\THis",strtotime($startTime))."\nDTEND;TZID=Europe/Berlin:".date("Ymd\THis",strtotime($endTime))."\nLOCATION:".$address."\nTRANSP:OPAQUE\nSEQUENCE:0\nUID:".md5($customerCode)."\nDTSTAMP:".date("Ymd\THis\Z")."\nSUMMARY:". $name . $middleName . $familyName . $customerCode."\nDESCRIPTION:".$description."\nPRIORITY:1\nCLASS:PRIVATE\nEND:VEVENT\n";
   }
 }
 }
