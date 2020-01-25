@@ -62,8 +62,8 @@ END:VTIMEZONE
     $pin = $value->pin;
     $phone = $customerInfo->user->attributes->phone_number;
     $description = "Telefoon: ". $phone .
-    "\\n\\nPin: " . $pin .
-    "\\n\\nOmschrijving: " . $value->description;
+    "\\nPin: " . $pin .
+    "\\nOmschrijving: " . $value->description;
     $startTime = $value->scheduledStartDateTime;
     $endTime = $value->scheduledEndDateTime;
     $address = $value->address->street . " " . $value->address->streetNumber . ", " . $value->address->postalCode . " " . $value->address->city;
