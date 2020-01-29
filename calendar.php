@@ -58,6 +58,31 @@ END:VTIMEZONE
 <?php foreach($data->items as $value){
   if($value->status !== "Cancelled"){
     $customerUsername = $value->customerUsername;
+    
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => "https://z0shy2ecl0.execute-api.eu-west-1.amazonaws.com/production/customer",
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "GET",
+      CURLOPT_HTTPHEADER => array(
+        "accept:  application/json, text/plain, */*",
+        "customerusername: ". $customerUsername,
+        "idtoken:  ". $_GET["id"],
+        "x-api-key:  ". $_GET["api"]
+        ),
+    ));
+
+    $customerJson = curl_exec($curl);
+    curl_close($curl);
+
+    $customerInfo = json_decode($customerJson);
+    
     $customerCode = $value->customerNumber;
     $pin = $value->pin;
     $phone = $customerInfo->user->attributes->phone_number;
@@ -67,31 +92,6 @@ END:VTIMEZONE
     $startTime = $value->scheduledStartDateTime;
     $endTime = $value->scheduledEndDateTime;
     $address = $value->address->street . " " . $value->address->streetNumber . ", " . $value->address->postalCode . " " . $value->address->city;
-
-
-$curl = curl_init();
-
-  curl_setopt_array($curl, array(
-    CURLOPT_URL => "https://z0shy2ecl0.execute-api.eu-west-1.amazonaws.com/production/customer",
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => "",
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 0,
-    CURLOPT_FOLLOWLOCATION => true,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => "GET",
-    CURLOPT_HTTPHEADER => array(
-      "accept:  application/json, text/plain, */*",
-      "customerusername: ". $customerUsername,
-      "idtoken:  ". $_GET["id"],
-      "x-api-key:  ". $_GET["api"]
-      ),
-  ));
-
-  $customerJson = curl_exec($curl);
-  curl_close($curl);
-
-  $customerInfo = json_decode($customerJson);
 
   $gender = $customerInfo->user->attributes->gender;
 
