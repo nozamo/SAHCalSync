@@ -2,8 +2,39 @@
 
 $middleName = "";
 $familyName = "";
+$api = "API HIER";
+$email = "EMAIL HIER";
+$pass = "EMAILHIER";
 
-if(isset($_GET["id"]) && isset($_GET["api"])){
+if(isset($api) && (isset($email) && (isset($pass) ))){
+$postdata1 = array(
+    'username' => $email,
+    'password' => $pass
+);
+ 
+$payload = json_encode($postdata1);
+ 
+// Prepare new cURL resource
+$ch = curl_init('https://mijnstudent.studentaanhuis.nl/auth/signin');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+ 
+// Set HTTP Header for POST request 
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Content-Type: application/json',
+    'Content-Length: ' . strlen($payload))
+);
+ 
+// Submit the POST request
+$result = curl_exec($ch);
+
+$data1 = json_decode($result);
+
+$id = $data1->tokens->idToken;
+
+	
 
   $curl = curl_init();
 
@@ -18,8 +49,8 @@ if(isset($_GET["id"]) && isset($_GET["api"])){
     CURLOPT_CUSTOMREQUEST => "GET",
     CURLOPT_HTTPHEADER => array(
       "accept:  application/json, text/plain, */*",
-      "idtoken:  ". $_GET["id"],
-      "x-api-key:  ". $_GET["api"]
+      "idtoken:  ". $id,
+      "x-api-key:  ". $api
       ),
   ));
 
@@ -80,8 +111,8 @@ $curl = curl_init();
     CURLOPT_HTTPHEADER => array(
       "accept:  application/json, text/plain, */*",
       "customerusername: ". $customerUsername,
-      "idtoken:  ". $_GET["id"],
-      "x-api-key:  ". $_GET["api"]
+      "idtoken:  ". $id,
+      "x-api-key:  ". $api
       ),
   ));
 
@@ -128,5 +159,5 @@ echo "BEGIN:VEVENT\nDTSTART;TZID=Europe/Berlin:".date("Ymd\THis",strtotime($star
 END:VCALENDAR<?php
 // Eind van ICS file
 } else{
-  echo "Ongeldige URL. Gebruik yourdomain.com/calendar.php?id=YOUR_ID_TOKEN&api=YOUR_API_KEY";
+  echo "Ongeldige instellingen. Niet alle variabeles zijn juist aangepast";
 }
