@@ -1,0 +1,2 @@
+rm (pad naar ics bestand we verwijderen dit bestand om sync/cache problemen te voorkomen).ics 
+curl -o /(pad naar openbare map met bestandsnaam).ics http://(interne-url-naar)/sah.php
