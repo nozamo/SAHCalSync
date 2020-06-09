@@ -18,7 +18,7 @@ Stap 6. The fun part, je kopieert nu de openbare link van je ical bestand en pla
 Oude methode:
 Gebruik:
 Download XAMPP of iets dergelijks, of gebruik je eigen domein en download het volgende bestand:
-https://github.com/nozamo/SAHCalSync/blob/master/sahkalender.zip
+https://github.com/nozamo/SAHCalSync/archive/master.zip
 
 Pak het bestand uit en zet het bestand in je htdocs en doe vervolgens dit: Open F12 -> Network -> XHR.
 Open dan SAH -> afspraken.
